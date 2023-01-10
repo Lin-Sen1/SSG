@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		"outDir": "dist",
+		"rootDir": "src" /*在源文件中指定根文件夹。*/,
+		"target": "ESNext" /*为发出的JavaScript设置JavaScript语言版本，并包含兼容的库声明 */,
+		"jsx": "react-jsx"
+	}
+}
