@@ -5,7 +5,7 @@ export function Layout() {
 
 	return (
 		<div>
-			<h1>This is Layout Component 1212</h1>
+			<h1>This is Layout Component 1123212</h1>
 			<div>
 				{count}
 				<button onClick={() => setCount(count + 1)}>Add Count</button>
