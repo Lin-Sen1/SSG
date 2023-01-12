@@ -1,3 +1,3 @@
 #!/user/bin/env node
 
-require("../dist/node/cli");
+import("../dist/cli.mjs");

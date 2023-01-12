@@ -2,9 +2,10 @@
 	"compilerOptions": {
 		"module": "CommonJS" /* 目前只知道设为CommonJs后能在coding中使用require语法，其它作用暂时不知道 */,
 		"outDir": "dist",
-		"rootDir": "src" /*在源文件中指定根文件夹。*/,
-		"target": "ESNext" /*用于指定 TS 最后编译出来的 ES 版本 */,
+		"rootDir": "src" /* 在源文件中指定根文件夹。 */,
+		"target": "ESNext" /* 用于指定 TS 最后编译出来的 ES 版本 */,
 		/* ESNext 是一个动态的 ECMAScript 版本，指当前最新发布的版本没有包含，但已经定案（确定明年发布），包含新特性的 ECMAScript 版本。 */
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"esModuleInterop": true
 	}
 }
