@@ -5,7 +5,8 @@ import { createDevServer } from './dev';
 
 import { build } from './build';
 // import { resolve } from "root";
-
+console.log(123);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const currentVersion = require('../../package').version;
 
 // 创建cac实例  version 定义版本号 help定义帮助信息
