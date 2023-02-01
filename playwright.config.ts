@@ -16,6 +16,7 @@ const config: PlaywrightTestConfig = {
   use: {
     // 没有UI界面的无头游览器
     headless: true
+    // baseURL: 'http://localhost:5173'
   }
 };
 

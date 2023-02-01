@@ -30,13 +30,13 @@ async function prepareE2E() {
     cwd: ROOT
   });
 
-  // execa.commandSync('pnpm i', {
-  //   cwd: exampleDir,
-  //   ...defaultOptions
-  // });
+  execa.commandSync('pnpm i', {
+    cwd: exampleDir,
+    ...defaultOptions
+  });
 
   // 启动命令
-  execa.commandSync('npm run dev', {
+  execa.commandSync('pnpm dev', {
     cwd: exampleDir,
     ...defaultOptions
   });

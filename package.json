@@ -11,13 +11,19 @@
 		"lint": "eslint --fix --ext .ts,.tsx,.js,.jsx ./",
 		"test:init": "vitest --ui",
 		"prepare:e2e": "tsx scripts/prepare-e2e.ts",
-		"test:e2e":"playwright test"
+		"test:e2e": "playwright test",
+		"commit": "git add . && git-cz"
 	},
 	"bin": {
 		"island": "bin/island.js"
 	},
 	"lint-staged": {
 		"**/*.{js,jsx,tsx,ts}": "eslint --fix"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-customizable"
+		}
 	},
 	"keywords": [],
 	"author": "",
@@ -33,7 +39,11 @@
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.48.1",
 		"@vitest/ui": "^0.28.3",
+		"commitizen": "^4.3.0",
 		"commitlint": "^17.4.2",
+		"commitlint-config-cz": "^0.13.3",
+		"cz-conventional-changelog": "^3.3.0",
+		"cz-customizable": "^7.0.0",
 		"eslint": "^8.31.0",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-prettier": "^4.2.1",
