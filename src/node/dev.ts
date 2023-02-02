@@ -11,8 +11,12 @@ import pluginReact from '@vitejs/plugin-react'; /* react热更新插件 */
 // 告诉vite 根目录下所有的路径都是合法的
 import { PACKAGE_ROOT } from './constants/index';
 
+import { resolveConfig } from './config';
+
 // process.cwd() 返回当前工作目录
 export async function createDevServer(root = process.cwd()) {
+  const config = await resolveConfig(root, 'serve', 'development');
+  console.log('config', config);
   return createViteDevServer({
     root,
     plugins: [pluginIndexHtml(), pluginReact()],
