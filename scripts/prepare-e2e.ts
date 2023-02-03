@@ -3,8 +3,6 @@ import fse from 'fs-extra';
 import * as execa from 'execa';
 const exampleDir = path.resolve(__dirname, '../e2e/playground/basic');
 
-console.log('path is :', exampleDir);
-
 // 项目根目录
 const ROOT = path.resolve(__dirname, '..');
 

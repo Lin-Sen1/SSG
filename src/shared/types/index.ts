@@ -12,7 +12,7 @@ export type SidebarItem = {
 };
 
 export interface SidebarGrounp {
-  text: string;
+  text?: string;
   items: SidebarItem[];
 }
 
@@ -21,18 +21,25 @@ export interface Sidebar {
 }
 
 export interface Footer {
-  message: string;
+  message?: string;
 }
 
 export interface ThemeConfig {
-  nav: NavItemWithLink[];
+  nav?: NavItemWithLink[];
   sidebar?: Sidebar;
   footer?: Footer;
 }
 
 export interface UserConfig {
-  title: string;
-  description: string;
-  themeConfig: ThemeConfig;
-  vite: ViteConfiguration;
+  title?: string;
+  description?: string;
+  themeConfig?: ThemeConfig;
+  vite?: ViteConfiguration;
+}
+
+export interface SiteConfig {
+  root: string;
+  configPath: string;
+  // 站点数据
+  siteData: UserConfig;
 }

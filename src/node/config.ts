@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import fs from 'fs-extra';
 import { loadConfigFromFile } from 'vite';
-import { UserConfig } from '../shared/types/index';
+import { SiteConfig, UserConfig } from '../shared/types/index';
 
 type RawConfig =
   | UserConfig
@@ -24,15 +24,39 @@ function getUserConfigPath(root: string) {
   }
 }
 
+function resolveSiteData(userConfig: UserConfig): UserConfig {
+  return {
+    title: userConfig.title || 'island.js',
+    description: userConfig.description || 'SSG Framework',
+    themeConfig: userConfig.themeConfig || {},
+    vite: userConfig.vite || {}
+  };
+}
+
 export async function resolveConfig(
   root: string,
   command: 'serve' | 'build',
   mode: 'production' | 'development'
 ) {
+  const [configPath, userConfig] = await resolveUserConfig(root, command, mode);
+
+  const siteConfig: SiteConfig = {
+    root,
+    configPath,
+    siteData: resolveSiteData(userConfig as UserConfig)
+  };
+  return siteConfig;
+}
+
+export async function resolveUserConfig(
+  root: string,
+  command: 'serve' | 'build',
+  mode: 'development' | 'production'
+) {
   // 1.获取配置文件路径，支持 js、ts 格式
   const configPath = getUserConfigPath(root);
   // 2.解析配置文件
-  // loadConfigFiles是 vite中解析配置文件的api
+  // TODO:  可以研究下这个api ; loadConfigFiles是 vite中解析配置文件的api
   const result = await loadConfigFromFile(
     {
       command,
@@ -57,4 +81,9 @@ export async function resolveConfig(
   } else {
     return [configPath, {} as UserConfig] as const;
   }
+}
+
+// 直接返回传入的config，使其出现类型提示
+export function defineConfig(config: UserConfig): UserConfig {
+  return config;
 }

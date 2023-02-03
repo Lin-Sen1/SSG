@@ -12,14 +12,15 @@ import pluginReact from '@vitejs/plugin-react'; /* react热更新插件 */
 import { PACKAGE_ROOT } from './constants/index';
 
 import { resolveConfig } from './config';
+import { pluginConifg } from './plugin-island/config';
 
 // process.cwd() 返回当前工作目录
 export async function createDevServer(root = process.cwd()) {
   const config = await resolveConfig(root, 'serve', 'development');
-  console.log('config', config);
+  console.log(config.siteData);
   return createViteDevServer({
     root,
-    plugins: [pluginIndexHtml(), pluginReact()],
+    plugins: [pluginIndexHtml(), pluginReact(), pluginConifg(config)],
     server: {
       fs: {
         allow: [PACKAGE_ROOT]
