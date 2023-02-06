@@ -15,12 +15,18 @@ import { resolveConfig } from './config';
 import { pluginConifg } from './plugin-island/config';
 
 // process.cwd() 返回当前工作目录
-export async function createDevServer(root = process.cwd()) {
+export async function createDevServer(
+  root = process.cwd(),
+  restart: () => Promise<void>
+) {
+  // 执行 island dev docs 时这个 root 为 docs
+  // 查看 resolveConfig 解析出的内容
+  // resolveConfig 方法的结果为项目的整体配置, 包括  title?: string; description?: string; themeConfig?: ThemeConfig; vite?: ViteConfiguration;
   const config = await resolveConfig(root, 'serve', 'development');
-  console.log(config.siteData);
+  console.log(config);
   return createViteDevServer({
     root,
-    plugins: [pluginIndexHtml(), pluginReact(), pluginConifg(config)],
+    plugins: [pluginIndexHtml(), pluginReact(), pluginConifg(config, restart)],
     server: {
       fs: {
         allow: [PACKAGE_ROOT]
