@@ -1,7 +1,9 @@
 import cac from 'cac';
+import { resolve } from 'path';
 // import { generateHtmlFn } from "./genTemplate";
 
 import { build } from './build';
+import { resolveConfig } from './config';
 // import { resolve } from "root";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const currentVersion = require('../../package').version;
@@ -33,10 +35,11 @@ cli
   .command('build [root]', 'build in production')
   .action(async (root: string) => {
     try {
-      // root = resolve(root);
-      await build(root);
+      root = resolve(root);
+      const config = await resolveConfig(root, 'build', 'production');
+      await build(root, config);
     } catch (error) {
-      console.log(error);
+      console.log('error------------------', error);
     }
   });
 

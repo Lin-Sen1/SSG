@@ -3,7 +3,6 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   // 入口
   // TODO: 将 dev.ts 单独打包是为了啥 忘记了
-
   entry: ['src/node/cli.ts', 'src/node/index.ts', 'src/node/dev.ts'],
   // 清空之前的编译产物
   clean: true,

@@ -1,15 +1,16 @@
-import { relative } from 'path';
+import { join, relative } from 'path';
 import { SiteConfig } from 'shared/types';
 
 import { normalizePath, Plugin, ViteDevServer } from 'vite';
+import { PACKAGE_ROOT } from '../constants/index';
 
 const SITE_DATA_ID = 'island:site-data';
 
-export function pluginConifg(
+export function pluginConfig(
   config: SiteConfig,
-  restart: () => Promise<void>
+  restart?: () => Promise<void>
 ): Plugin {
-  let server: ViteDevServer | null = null;
+  // let server: ViteDevServer | null = null;
   return {
     name: 'island:site-data',
     // 当我们通过import语句来引入island：site-data模块时，会先进入resolveId方法
@@ -28,8 +29,20 @@ export function pluginConifg(
     },
 
     // 赋值给server
-    configureServer(s) {
-      server = s;
+    // configureServer(s) {
+    //   server = s;
+    // },
+
+    //  config 钩子可以让我们自定义 Vite 配置，因此之前指定的 root 参数也可以放到这个钩子中
+    config() {
+      return {
+        root: PACKAGE_ROOT,
+        resolve: {
+          alias: {
+            '@runtime': join(PACKAGE_ROOT, 'src', 'runtime', 'index.ts')
+          }
+        }
+      };
     },
 
     // 配置文件热更新
