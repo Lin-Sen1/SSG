@@ -54,21 +54,21 @@ export class RouteService {
   // import loadable from '@loadable/component';
   generateRoutesCode() {
     return `
-import React from 'react';
-import loadable from '@loadable/component';
-${this.#routeData
-  .map((route, index) => {
-    return `const Route${index} = loadable(() => import('${route.absolutePath}'));`;
-  })
-  .join('\n')}
-export const routes = [
-  ${this.#routeData
-    .map((route, index) => {
-      return `{ path: '${route.routePath}', element: React.createElement(Route${index}) }`;
-    })
-    .join(',\n')}
-];
-`;
+          import React from 'react';
+          import loadable from '@loadable/component';
+          ${this.#routeData
+            .map((route, index) => {
+              return `const Route${index} = loadable(() => import('${route.absolutePath}'));`;
+            })
+            .join('\n')}
+          export const routes = [
+             ${this.#routeData
+               .map((route, index) => {
+                 return `{ path: '${route.routePath}', element: React.createElement(Route${index}) }`;
+               })
+               .join(',\n')}
+        ];
+    `;
   }
 
   getRouteMeta(): RouteMeta[] {

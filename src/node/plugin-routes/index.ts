@@ -1,6 +1,12 @@
 import { Plugin } from 'vite';
 import { RouteService } from './RouteService';
 
+export interface Route {
+  path: string;
+  element: React.ReactElement;
+  filePath: string;
+}
+
 interface PluginOptions {
   root: string;
 }
