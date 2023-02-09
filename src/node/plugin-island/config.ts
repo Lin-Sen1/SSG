@@ -1,7 +1,7 @@
 import { join, relative } from 'path';
 import { SiteConfig } from 'shared/types';
 
-import { normalizePath, Plugin, ViteDevServer } from 'vite';
+import { normalizePath, Plugin } from 'vite';
 import { PACKAGE_ROOT } from '../constants/index';
 
 const SITE_DATA_ID = 'island:site-data';

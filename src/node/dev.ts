@@ -13,6 +13,7 @@ import { PACKAGE_ROOT } from './constants/index';
 
 import { resolveConfig } from './config';
 import { pluginConfig } from './plugin-island/config';
+import { pluginRoutes } from './plugin-routes';
 
 // process.cwd() 返回当前工作目录
 export async function createDevServer(
@@ -23,13 +24,19 @@ export async function createDevServer(
   // 查看 resolveConfig 解析出的内容
   // resolveConfig 方法的结果为项目的整体配置, 包括  title?: string; description?: string; themeConfig?: ThemeConfig; vite?: ViteConfiguration;
   const config = await resolveConfig(root, 'serve', 'development');
-
   return createViteDevServer({
     // vite本身是一个静态资源服务器，如果传进来的是docs，那么vite会提前接管静态资源服务
     // 在你访问约定式路由的时候，直接返回文件内容
     // 所以需要讲root设为框架路径，来绕过vite行为，让约定式路由可以正常访问
     root: PACKAGE_ROOT,
-    plugins: [pluginIndexHtml(), pluginReact(), pluginConfig(config, restart)],
+    plugins: [
+      pluginIndexHtml(),
+      pluginReact(),
+      pluginConfig(config, restart),
+      pluginRoutes({
+        root: config.root
+      })
+    ],
     server: {
       fs: {
         allow: [PACKAGE_ROOT]
