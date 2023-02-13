@@ -10,6 +10,7 @@ import { SiteConfig } from '../shared/types/index';
 import pluginReact from '@vitejs/plugin-react';
 
 import { pathToFileURL } from 'url';
+import { createVitePlugins } from './vitePlugins';
 
 // 此处当时以为和定义一个function是一个意思，但是会报错
 // 原因是因为function最后return的还是import语法，最后打包的时候会被编译为require导致报错
@@ -23,7 +24,7 @@ export async function bundle(root: string, config: SiteConfig) {
       return {
         mode: 'production',
         root,
-        plugins: [pluginReact(), pluginConfig(config)],
+        plugins: createVitePlugins(config),
         ssr: {
           // 注意加上这个配置，防止 cjs 产物中 require ESM 的产物，因为 react-router-dom 的产物为 ESM 格式
           noExternal: ['react-router-dom']
