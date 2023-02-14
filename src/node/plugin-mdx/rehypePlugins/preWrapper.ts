@@ -21,8 +21,6 @@ export const rehypePluginPreWrapper: Plugin<[], Root> = () => {
         // 提取语法名称
         // language-js
         const lang = codeClassName.split('-')[1];
-        // 已经取出了className,所以这里删掉
-        codeNode.properties.className = '';
         // 克隆pre的节点
         const clonedNode: Element = {
           type: 'element',

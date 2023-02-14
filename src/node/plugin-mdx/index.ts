@@ -1,5 +1,5 @@
 import { pluginMdxRollup } from './pluginMdxRollup';
 
-export function createMdxPlugins() {
-  return [pluginMdxRollup()];
+export async function createMdxPlugins() {
+  return [await pluginMdxRollup()];
 }

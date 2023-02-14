@@ -70,6 +70,7 @@
 		"cac": "^6.7.14",
 		"fast-glob": "^3.2.12",
 		"fs-extra": "^11.1.0",
+		"hast-util-from-html": "^1.0.1",
 		"ora": "^6.1.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
@@ -83,6 +84,7 @@
 		"remark-parse": "^10.0.1",
 		"remark-rehype": "^10.1.0",
 		"serve": "^14.2.0",
+		"shiki": "^0.14.1",
 		"unified": "^10.1.2",
 		"vite": "^4.0.4"
 	}

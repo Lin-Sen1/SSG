@@ -8,7 +8,10 @@ import remarkPluginMDXFrontMatter from 'remark-mdx-frontmatter';
 import remarkPluginFrontmatter from 'remark-frontmatter';
 import { rehypePluginPreWrapper } from './rehypePlugins/preWrapper';
 
-export function pluginMdxRollup() {
+import shiki from 'shiki';
+import { rehypePluginShiki } from './rehypePlugins/shiki';
+
+export async function pluginMdxRollup() {
   return [
     pluginMdx({
       /**
@@ -40,7 +43,11 @@ export function pluginMdxRollup() {
             }
           }
         ],
-        rehypePluginPreWrapper
+        rehypePluginPreWrapper,
+        [
+          rehypePluginShiki,
+          { highlighter: await shiki.getHighlighter({ theme: 'nord' }) }
+        ]
       ]
     })
   ];
