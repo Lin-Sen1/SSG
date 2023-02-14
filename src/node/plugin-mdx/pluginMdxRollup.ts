@@ -6,15 +6,26 @@ import rehypePluginSlug from 'rehype-slug';
 
 import remarkPluginMDXFrontMatter from 'remark-mdx-frontmatter';
 import remarkPluginFrontmatter from 'remark-frontmatter';
+import { rehypePluginPreWrapper } from './rehypePlugins/preWrapper';
 
 export function pluginMdxRollup() {
   return [
     pluginMdx({
+      /**
+       * remark 是 Markdown 相关的插件集合，提供了 Markdown 的解析、修改、转换为 HTML 等能力。
+       * 目前提供的一些常用插件：
+       * remark-parse: 提供解析 Markdown 的能力
+       * remark-gfm: 提供 GFM (GitHub flavored markdown) 支持
+       * remark-lint: 提供 Markdown 的代码检查能力
+       * remark-toc: 提供 Markdown 文档目录生成功能
+       * remark-html 提供将 Markdown 编译为 HTML 的能力
+       */
       remarkPlugins: [
         remarkGfm,
         remarkPluginFrontmatter,
         [remarkPluginMDXFrontMatter, { name: 'frontMatter' }]
       ],
+      // rehype 是 HTML 相关的插件集合，提供了 HTML 的格式化、压缩、文档生成等能力
       rehypePlugins: [
         rehypePluginSlug,
         [
@@ -28,7 +39,8 @@ export function pluginMdxRollup() {
               value: '#'
             }
           }
-        ]
+        ],
+        rehypePluginPreWrapper
       ]
     })
   ];

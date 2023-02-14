@@ -8,6 +8,7 @@ specifiers:
   '@mdx-js/rollup': 2.1.3
   '@playwright/test': 1.26.1
   '@types/fs-extra': ^11.0.0
+  '@types/hast': ^2.3.4
   '@types/node': ^18.11.18
   '@types/react': ^18.0.26
   '@types/react-dom': ^18.0.10
@@ -50,6 +51,7 @@ specifiers:
   tsx: ^3.12.2
   typescript: ^4.9.4
   unified: ^10.1.2
+  unist-util-visit: ^4.1.2
   vite: ^4.0.4
   vitest: ^0.28.3
 
@@ -82,6 +84,7 @@ devDependencies:
   '@loadable/component': 5.15.3_react@18.2.0
   '@playwright/test': 1.26.1
   '@types/fs-extra': 11.0.0
+  '@types/hast': 2.3.4
   '@types/node': 18.11.18
   '@types/react': 18.0.26
   '@types/react-dom': 18.0.10
@@ -106,6 +109,7 @@ devDependencies:
   tsup: 6.5.0_typescript@4.9.4
   tsx: 3.12.2
   typescript: 4.9.4
+  unist-util-visit: 4.1.2
   vitest: 0.28.3_@vitest+ui@0.28.3
 
 packages:
@@ -993,7 +997,6 @@ packages:
     resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}
     dependencies:
       '@types/unist': 2.0.6
-    dev: false
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
@@ -1062,7 +1065,6 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
-    dev: false
 
   /@typescript-eslint/eslint-plugin/5.48.1_3jon24igvnqaqexgwtxk6nkpse:
     resolution: {integrity: sha512-9nY5K1Rp2ppmpb9s9S2aBiF3xo5uExCehMDmYmmFqqyxgenbHJ3qbarcLt4ITgaD6r/2ypdlcFRdcuVPnks+fQ==}
@@ -6151,7 +6153,6 @@ packages:
 
   /unist-util-is/5.2.0:
     resolution: {integrity: sha512-Glt17jWwZeyqrFqOK0pF1Ded5U3yzJnFr8CG1GMjCWTp9zDo2p+cmD6pWbZU8AgM5WU3IzRv6+rBwhzsGh6hBQ==}
-    dev: false
 
   /unist-util-position-from-estree/1.1.2:
     resolution: {integrity: sha512-poZa0eXpS+/XpoQwGwl79UUdea4ol2ZuCYguVaJS4qzIOMDzbqz8a3erUCOmubSZkaOuGamb3tX790iwOIROww==}
@@ -6183,7 +6184,6 @@ packages:
     dependencies:
       '@types/unist': 2.0.6
       unist-util-is: 5.2.0
-    dev: false
 
   /unist-util-visit/4.1.2:
     resolution: {integrity: sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==}
@@ -6191,7 +6191,6 @@ packages:
       '@types/unist': 2.0.6
       unist-util-is: 5.2.0
       unist-util-visit-parents: 5.1.3
-    dev: false
 
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}

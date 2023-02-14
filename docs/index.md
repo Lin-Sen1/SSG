@@ -2,6 +2,10 @@
 title: 'island'
 ---
 
+```js
+console.log(123);
+```
+
 # GFM
 
 ### Autolink
