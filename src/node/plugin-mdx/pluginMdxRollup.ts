@@ -10,6 +10,7 @@ import { rehypePluginPreWrapper } from './rehypePlugins/preWrapper';
 
 import shiki from 'shiki';
 import { rehypePluginShiki } from './rehypePlugins/shiki';
+import { remarkPluginToc } from './remarkPlugins/toc';
 
 export async function pluginMdxRollup() {
   return [
@@ -26,7 +27,8 @@ export async function pluginMdxRollup() {
       remarkPlugins: [
         remarkGfm,
         remarkPluginFrontmatter,
-        [remarkPluginMDXFrontMatter, { name: 'frontMatter' }]
+        [remarkPluginMDXFrontMatter, { name: 'frontMatter' }],
+        remarkPluginToc
       ],
       // rehype 是 HTML 相关的插件集合，提供了 HTML 的格式化、压缩、文档生成等能力
       rehypePlugins: [

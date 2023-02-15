@@ -5,9 +5,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import ora from 'ora';
 
-import { pluginConfig } from './plugin-island/config';
 import { SiteConfig } from '../shared/types/index';
-import pluginReact from '@vitejs/plugin-react';
 
 import { pathToFileURL } from 'url';
 import { createVitePlugins } from './vitePlugins';
