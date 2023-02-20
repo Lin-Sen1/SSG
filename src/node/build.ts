@@ -112,7 +112,7 @@ export async function renderPage(
   // 把html产物写入到文件目录中
   await fs.writeFile(path.join(root, 'build', 'index.html'), html);
   // 移除ssr产物
-  await fs.remove(path.join(root, '.temp'));
+  // await fs.remove(path.join(root, '.temp'));
 }
 
 export async function build(root: string, config: SiteConfig) {

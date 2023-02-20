@@ -61,13 +61,13 @@ export class RouteService {
               return `const Route${index} = loadable(() => import('${route.absolutePath}'));`;
             })
             .join('\n')}
-          export const routes = [
-             ${this.#routeData
-               .map((route, index) => {
-                 return `{ path: '${route.routePath}', element: React.createElement(Route${index}) }`;
-               })
-               .join(',\n')}
-        ];
+            export const routes = [
+              ${this.#routeData
+                .map((route, index) => {
+                  return `{ path: '${route.routePath}', element: React.createElement(Route${index}) }`;
+                })
+                .join(',\n')}
+              ];
     `;
   }
 

@@ -3,3 +3,4 @@ node_modules
 src/.umi
 dist
 build
+.temp
