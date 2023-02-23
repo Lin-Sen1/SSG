@@ -35,7 +35,8 @@ module.exports = {
 		// 关掉使用react时必须importReact语法的规则
 		"react/react-in-jsx-scope": "off",
     // TODO: require报错临时方案
-    "@typescript-eslint/no-var-requires":"off"
+    "@typescript-eslint/no-var-requires":"off",
+		"no-debugger":"off"
 	},
 	settings: {
 		react: {
