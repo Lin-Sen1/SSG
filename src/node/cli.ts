@@ -39,7 +39,7 @@ cli
       const config = await resolveConfig(root, 'build', 'production');
       await build(root, config);
     } catch (error) {
-      console.log('error------------------', error);
+      // console.log('error------------------', error);
     }
   });
 

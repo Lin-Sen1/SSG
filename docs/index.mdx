@@ -1,32 +1,47 @@
 ---
-title: 'island'
+title: 'custom title'
 ---
-
-```js
-console.log(1234);
-console.log(1234);
-console.log(1234);
-console.log(1234);
-console.log(1223);
-```
-
-# h1
 
 import Counter from './Counter.tsx';
 
 <Counter />
-## h2 \`code\`
-
-### h3 [link](https://islandjs.dev)
-
-#### h4
-
-##### h5
 
 # GFM
 
-### Autolink
+231231322
 
-## Autolink
+## [Autolink](/index) literals
 
-literals www.example.com, https://example.com, and contact@example.com.
+www.example.com, https://example.com, and contact@example.com.
+
+## Footnote
+
+123
+
+A note[^1]
+
+[^1]: Big note.
+
+## Strike `through`
+
+~one~ or ~~two~~ tildes.
+
+## Table
+
+| a   | b   |   c |  d  |
+| --- | :-- | --: | :-: |
+| 1   | 2   |   3 |  4  |
+
+## Tasklist
+
+- [ ] to do
+- [x] done
+
+```ts
+import { Plugin } from 'vite';
+import { pluginMdxRollup } from './pluginMdxRollup';
+
+export async function pluginMdx(): Promise<Plugin[]> {
+  return [await pluginMdxRollup()];
+}
+```

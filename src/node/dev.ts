@@ -26,7 +26,7 @@ export async function createDevServer(
     // 在你访问约定式路由的时候，直接返回文件内容
     // 所以需要讲root设为框架路径，来绕过vite行为，让约定式路由可以正常访问
     root: PACKAGE_ROOT,
-    plugins: await createVitePlugins(config, restart),
+    plugins: await createVitePlugins(config, false, restart),
     server: {
       fs: {
         allow: [PACKAGE_ROOT]

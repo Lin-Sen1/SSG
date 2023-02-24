@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import fs from 'fs-extra';
-import { loadConfigFromFile } from 'vite';
+import { loadConfigFromFile, normalizePath } from 'vite';
 import { SiteConfig, UserConfig } from '../shared/types/index';
 
 type RawConfig =
@@ -45,8 +45,8 @@ export async function resolveConfig(
   const [configPath, userConfig] = await resolveUserConfig(root, command, mode);
 
   const siteConfig: SiteConfig = {
-    root,
-    configPath,
+    root: normalizePath(root),
+    configPath: normalizePath(configPath),
     siteData: resolveSiteData(userConfig as UserConfig)
   };
   return siteConfig;

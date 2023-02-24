@@ -9,6 +9,7 @@ export interface Route {
 
 interface PluginOptions {
   root: string;
+  isSSR: boolean;
 }
 
 export const CONVENTIONAL_ROUTE_ID = 'island:routes';
@@ -36,7 +37,7 @@ export function pluginRoutes(options: PluginOptions): Plugin {
     // 加载虚拟模块
     load(id: string) {
       if (id === '\0' + CONVENTIONAL_ROUTE_ID) {
-        return routerService.generateRoutesCode();
+        return routerService.generateRoutesCode(options.isSSR || false);
       }
     }
   };

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "rootDir": ".",
-    "module": "ESNext"
+    "jsx": "react-jsx"
+    // "rootDir": ".",
+    // "module": "ESNext"
   }
 }
