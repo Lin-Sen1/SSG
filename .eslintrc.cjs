@@ -36,7 +36,9 @@ module.exports = {
 		"react/react-in-jsx-scope": "off",
     // TODO: require报错临时方案
     "@typescript-eslint/no-var-requires":"off",
-		"no-debugger":"off"
+		"no-debugger":"off",
+		// 防止使用unocss语法时的一些报错
+		"react/no-unknown-property":"off"
 	},
 	settings: {
 		react: {
