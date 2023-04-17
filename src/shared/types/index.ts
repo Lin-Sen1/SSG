@@ -1,5 +1,17 @@
 import { UserConfig as ViteConfiguration } from 'vite';
 
+export type PageType = 'home' | 'doc' | 'custom' | '404';
+
+export interface Header {
+  id: string;
+  text: string;
+  depth: number;
+}
+
+export interface FrontMatter {
+  title?: string;
+}
+
 export type NavItemWithLink = {
   text: string;
   link: string;
