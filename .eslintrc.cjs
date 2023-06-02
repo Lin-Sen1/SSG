@@ -30,11 +30,12 @@ module.exports = {
 		quotes: ["error", "single"],
 		// 没分号时报错
 		semi: ["error", "always"],
-		// off关闭规则
+		// @typescript-eslint/no-unused-vars 关闭未使用变量的报错
 		"@typescript-eslint/no-non-null-assertion": "off",
 		// 关掉使用react时必须importReact语法的规则
 		"react/react-in-jsx-scope": "off",
     // TODO: require报错临时方案
+		// typescript-eslint/no-var-requires 关闭require报错
     "@typescript-eslint/no-var-requires":"off",
 		"no-debugger":"off",
 		// 防止使用unocss语法时的一些报错

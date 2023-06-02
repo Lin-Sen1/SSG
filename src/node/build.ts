@@ -49,12 +49,12 @@ export async function bundle(root: string, config: SiteConfig) {
   // // await clientBuild();
   // // await serverBuild();
   // // 使用Promise.all()同步执行
-  // const [clientBundle, serverBundle] = await Promise.all([
+  // // const [clientBundle, serverBundle] = await Promise.all([
   //   // client build
-  //   clientBuild(),
+  // //  clientBuild(),
   //   // server build
-  //   serverBuild()
-  // ]);
+  // //  serverBuild()
+  // // ]);
 
   try {
     const [clientBundle, serverBundle] = await Promise.all([
@@ -81,6 +81,13 @@ export async function renderPage(
     (chunk) => chunk.type === 'chunk' && chunk.isEntry
   );
   // 多路由打包
+  // 1. 遍历路由数组
+  // 2. 拿到每个路由的path
+  // 3. 调用render函数，拿到组件的html字符串
+  // 4. 拼接html字符串
+  // 5. 写入文件
+  // 6. 重复1-5
+  // 7. 打包结束
   await Promise.all(
     routes.map(async (route) => {
       const routPath = route.path;

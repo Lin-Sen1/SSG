@@ -9,5 +9,9 @@ import { pluginMdxHMR } from './pluginMdxHmr';
 // vite中import.meta.hot.accept() 这个api覆盖了第二步和第三步的步骤
 
 export async function createMdxPlugins() {
+  /**
+   * pluginMdxRollup() 用来将mdx文件转换成jsx文件
+   * pluginMdxHMR() 用来实现热更新
+   */
   return [await pluginMdxRollup(), pluginMdxHMR()];
 }

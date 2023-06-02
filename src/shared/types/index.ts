@@ -10,8 +10,19 @@ export interface Header {
 
 export interface FrontMatter {
   title?: string;
+  description?: string;
+  pageType?: PageType;
+  sideber?: boolean;
+  outline?: boolean;
 }
 
+export interface PageData {
+  siteData: UserConfig;
+  pagePath: string;
+  frontMatter: FrontMatter;
+  pageType: PageType;
+  toc: Header[];
+}
 export type NavItemWithLink = {
   text: string;
   link: string;
@@ -23,6 +34,7 @@ export type SidebarItem = {
   link: string;
 };
 
+// 菜单项
 export interface SidebarGrounp {
   text?: string;
   items: SidebarItem[];

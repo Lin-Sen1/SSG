@@ -2,6 +2,7 @@ import { MD_REGEX } from '../constants';
 import { Plugin } from 'vite';
 import assert from 'assert';
 
+// vite热更新机制
 export function pluginMdxHMR(): Plugin {
   let viteReactPlugin: Plugin;
   return {

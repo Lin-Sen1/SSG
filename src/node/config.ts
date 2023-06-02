@@ -14,11 +14,11 @@ function getUserConfigPath(root: string) {
     const supportConfigFiles = ['config.js', 'config.ts'];
     const configPath = supportConfigFiles
       .map((file) => {
+        // resolve() 方法会把一个路径或路径片段的序列解析为一个绝对路径,root为当前路径, file为文件名,返回的是一个绝对路径,如D:\SSG\docs\config.ts
         return resolve(root, file);
       })
-      // TODO:  fs.pathExistsSync 这个api还没有明白
+      // fs.pathExistsSync 判断文件是否存在
       .find(fs.pathExistsSync);
-
     return configPath;
   } catch (error) {
     console.log('Failed to load user config');
@@ -52,6 +52,7 @@ export async function resolveConfig(
   return siteConfig;
 }
 
+// 获取配置文件路径
 export async function resolveUserConfig(
   root: string,
   command: 'serve' | 'build',
@@ -61,7 +62,7 @@ export async function resolveUserConfig(
   // 执行 island dev docs 时配置文件路径为 D:\SSG\docs\config.ts
   const configPath = getUserConfigPath(root);
   // 2.解析配置文件
-  // TODO:  可以研究下这个api ; loadConfigFiles是 vite中解析配置文件的api
+  // loadConfigFromFile 会返回一个对象，包含了配置文件的路径、配置文件的内容、配置文件的依赖
   const result = await loadConfigFromFile(
     {
       command,
@@ -70,12 +71,6 @@ export async function resolveUserConfig(
     configPath,
     root
   );
-  // result 在 docs 目录下的结果为
-  // {
-  // path: 'D:/SSG/docs/config.ts',
-  // config: { title: '1112' },
-  // dependencies: [ 'src/node/config.ts', 'docs/config.ts' ]
-  // }
   if (result) {
     const { config: rawConfig = {} as RawConfig } = result;
     // rawConfig有3种形式
@@ -85,7 +80,6 @@ export async function resolveUserConfig(
     const userConfig = await (typeof rawConfig === 'function'
       ? rawConfig()
       : rawConfig);
-
     // as const 让 ts 能够自动的推断出返回值类型
     return [configPath, userConfig] as const;
   } else {

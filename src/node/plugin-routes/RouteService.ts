@@ -9,9 +9,13 @@ interface RouteMeta {
   absolutePath: string;
 }
 
+// 这里的 RouteService 用于生成约定式路由
 export class RouteService {
   // # 表示私有变量
+
+  // scanDir 扫描路径
   #scanDir: string;
+  // routeData 路由数据
   #routeData: RouteMeta[] = [];
 
   // scanDir 扫描路径
@@ -22,6 +26,7 @@ export class RouteService {
   async init() {
     // 返回 scanDir 目录中包含以下后缀的文件路径
     const files = fastGlob
+      // fast-glob 是一个用于快速获取文件路径的工具
       .sync(['**/*.{js,jsx,ts,tsx,md,mdx}'], {
         // 执行的工作目录
         cwd: this.#scanDir,
@@ -32,8 +37,8 @@ export class RouteService {
       })
       // 进行排序，保证每次返回的files都是稳定的
       .sort();
-
     files.forEach((file) => {
+      // normalizePath 用于规范化路径
       const fileRelativePath = normalizePath(
         // 根据传入的 this.#scanDir (当前工作目录)
         // 返回从 from 到 to 的相对路径
@@ -42,7 +47,7 @@ export class RouteService {
         path.relative(this.#scanDir, file)
         // 结果是  a.mdx
       );
-      // 路由路径
+      // 使用正则把不规范的路由格式化为正确路由路径
       const routePath = this.normalizeRoutePath(fileRelativePath);
       this.#routeData.push({
         routePath,
@@ -79,6 +84,7 @@ export class RouteService {
     return this.#routeData;
   }
 
+  // 这个方法用于把文件路径转换成路由路径
   normalizeRoutePath(rawPath: string) {
     const routePath = rawPath.replace(/\.(.*)?$/, '').replace(/index$/, '');
     return routePath.startsWith('/') ? routePath : `/${routePath}`;

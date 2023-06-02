@@ -5,7 +5,7 @@ export function Layout() {
   return (
     <div>
       <h1 p="2" m="6">
-        Commmon Content
+        Com aaaammon Content
       </h1>
       <h1>Doc Content</h1>
       <Content />

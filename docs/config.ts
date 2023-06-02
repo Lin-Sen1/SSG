@@ -1,5 +1,5 @@
 import { defineConfig } from '../src/node/config';
 
 export default defineConfig({
-  title: '11123'
+  title: '123'
 });

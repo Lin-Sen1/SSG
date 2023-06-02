@@ -19,6 +19,7 @@ export function pluginIndexHtml(): Plugin {
             tag: 'script',
             attrs: {
               type: 'module',
+              // 通过vite插件来相应 template.html文件
               src: `/@fs/${CLIENT_ENTRY_PATH}`
             },
             injectTo: 'body'

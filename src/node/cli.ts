@@ -11,6 +11,10 @@ const currentVersion = require('../../package').version;
 // 创建cac实例  version 定义版本号 help定义帮助信息
 const cli = cac('island').version(currentVersion).help();
 
+cli.command('').action(async () => {
+  console.log('---------------island success!---------------');
+});
+
 // action 如果输入的命令与之匹配，则使用回调函数作为命令操作
 cli.command('dev [root]', 'start dev server').action(async (root: string) => {
   // generateHtmlFn();
@@ -20,11 +24,15 @@ cli.command('dev [root]', 'start dev server').action(async (root: string) => {
   const createServer = async () => {
     // 如果要在 CJS 模块中调用 ESM 模块中的内容，需要使用 await import("路径")，而且必须要有异步（async）环境
     const { createDevServer } = await import('./dev.js');
+
     const server = await createDevServer(root, async () => {
+      // 重启 server
       await server.close();
       await createServer();
     });
-    await server.listen();
+    // 启动 server
+    await server.listen(3000);
+    // 打印 server 的地址信息
     server.printUrls();
   };
 
@@ -39,7 +47,7 @@ cli
       const config = await resolveConfig(root, 'build', 'production');
       await build(root, config);
     } catch (error) {
-      // console.log('error------------------', error);
+      console.log('build error------------------', error);
     }
   });
 
