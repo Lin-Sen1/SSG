@@ -31,6 +31,9 @@ export async function createDevServer(
       fs: {
         allow: [PACKAGE_ROOT]
       }
+    },
+    resolve: {
+      extensions: ['.js', '.ts', '.jsx', '.tsx', '.json']
     }
   });
 }

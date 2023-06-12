@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 import { build } from './build';
 import { resolveConfig } from './config';
+
 // import { resolve } from "root";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const currentVersion = require('../../package').version;
@@ -19,11 +20,10 @@ cli.command('').action(async () => {
 cli.command('dev [root]', 'start dev server').action(async (root: string) => {
   // generateHtmlFn();
 
-  // ----------------------test-------------------------
-
   const createServer = async () => {
     // 如果要在 CJS 模块中调用 ESM 模块中的内容，需要使用 await import("路径")，而且必须要有异步（async）环境
-    const { createDevServer } = await import('./dev.js');
+    // import { createDevServer } from "./dev";  如果在顶部这样引用，应该是同一个意思
+    const { createDevServer } = await import('./dev');
 
     const server = await createDevServer(root, async () => {
       // 重启 server
@@ -31,11 +31,12 @@ cli.command('dev [root]', 'start dev server').action(async (root: string) => {
       await createServer();
     });
     // 启动 server
-    await server.listen(3000);
+    await server.listen();
     // 打印 server 的地址信息
     server.printUrls();
   };
 
+  // 在cli的命令中启动server
   await createServer();
 });
 

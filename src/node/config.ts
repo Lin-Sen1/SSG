@@ -26,6 +26,7 @@ function getUserConfigPath(root: string) {
   }
 }
 
+// 相当于给用户传入的配置文件内容进行处理，如果用户没有传入配置文件，那么就使用默认的配置文件
 function resolveSiteData(userConfig: UserConfig): UserConfig {
   return {
     title: userConfig.title || 'island.js',
@@ -35,15 +36,19 @@ function resolveSiteData(userConfig: UserConfig): UserConfig {
   };
 }
 
+// 为什么是Promise<SiteConfig>，因为resolveConfig方法是异步的
+// resolveConfig 的作用是获取配置文件路径和配置文件内容，然后返回一个 SiteConfig 对象。
 export async function resolveConfig(
   root: string,
   command: 'serve' | 'build',
   mode: 'production' | 'development'
-) {
+): Promise<SiteConfig> {
   // configPath 在 docs 下时为 'D:/SSG/docs/config.ts'
   // userConfig 在 docs 下时为 config: { title: '1112' }
   const [configPath, userConfig] = await resolveUserConfig(root, command, mode);
 
+  // normalizePath 会将路径中的 \ 转换为 /
+  // resolveSiteData 把用户传入的配置文件内容进行处理
   const siteConfig: SiteConfig = {
     root: normalizePath(root),
     configPath: normalizePath(configPath),

@@ -10,6 +10,8 @@ function renderInBrowser() {
   if (!containerEl) {
     throw new Error('#root element not found');
   }
+  // 这里能拿到siteData的值是因为在vite的pluginConfig中配置了island:site-data，在load钩子中返回的
+
   createRoot(containerEl).render(
     <BrowserRouter>
       <App />
