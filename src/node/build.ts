@@ -35,6 +35,7 @@ export async function bundle(root: string, config: SiteConfig) {
         outDir: isServer ? path.join(root, '.temp') : path.join(root, 'build'),
         // outDir: isServer ? '.temp' : 'build',
         rollupOptions: {
+          // input是入口文件，output是出口文件
           input: isServer ? SERVER_ENTRY_PATH : CLIENT_ENTRY_PATH,
           output: {
             format: isServer ? 'cjs' : 'esm'
@@ -69,6 +70,7 @@ export async function bundle(root: string, config: SiteConfig) {
   }
 }
 
+// renderPage用来渲染多路由页面
 export async function renderPage(
   render: (url: string) => string,
   root: string,
@@ -134,6 +136,7 @@ export async function build(root: string, config: SiteConfig) {
   // 使用path.join()找不到路径，使用resolve后正常，原因是join只是将简单的路劲片段进行拼接
   // 并规范化生成一个路径，而resolve生成绝对路径，相当于执行cd操作
   const serverEntryPath = path.resolve(root, '.temp', 'ssr-entry.js');
+  console.log('serverEntryPath', serverEntryPath);
   // 3 服务端渲染，产出HTML
   // 此处虽然可以直接引用runtime中的render，但是不推荐，因为ssr-entry本质是跑在node环境里。
   const { render, routes } = await import(

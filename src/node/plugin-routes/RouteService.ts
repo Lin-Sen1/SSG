@@ -10,6 +10,10 @@ interface RouteMeta {
 }
 
 // 这里的 RouteService 用于生成约定式路由
+// 为什么要使用class，而不是直接导出一个函数呢？
+// 因为我们需要在插件初始化的时候就扫描所有的文件，然后将扫描到的文件路径存储起来
+// 之后再调用 load 方法的时候，直接返回扫描到的文件路径即可
+// 如果使用函数的话，每次调用都需要重新扫描文件，这样会影响性能
 export class RouteService {
   // # 表示私有变量
 
@@ -73,7 +77,7 @@ export class RouteService {
             export const routes = [
               ${this.#routeData
                 .map((route, index) => {
-                  return `{ path: '${route.routePath}', element: React.createElement(Route${index}) },`;
+                  return `{ path: '${route.routePath}', element: React.createElement(Route${index}), preload: ()=> import('${route.absolutePath}')  },`;
                 })
                 .join('\n')}
               ];

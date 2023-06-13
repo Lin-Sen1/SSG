@@ -8,7 +8,10 @@ export function pluginMdxHMR(): Plugin {
   return {
     name: 'vite-plugin-mdx-hmr',
     apply: 'serve',
+
+    // vite插件的生命周期
     configResolved(config) {
+      // config.plugins是一个数组，里面包含了所有的插件
       viteReactPlugin = config.plugins.find(
         (plugin) => plugin.name === 'vite:react-babel'
       ) as Plugin;
