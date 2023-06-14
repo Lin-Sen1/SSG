@@ -4,6 +4,7 @@ import { App, initPageData } from './app';
 
 // 开启约定式路由
 import { BrowserRouter } from 'react-router-dom';
+import { DataContext } from './hooks';
 
 async function renderInBrowser() {
   const containerEl = document.getElementById('root');
@@ -12,11 +13,12 @@ async function renderInBrowser() {
   }
 
   const pageData = await initPageData(location.pathname);
-
   createRoot(containerEl).render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <DataContext.Provider value={pageData}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </DataContext.Provider>
   );
 }
 

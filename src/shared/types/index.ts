@@ -67,7 +67,7 @@ export interface PageData {
   pagePath: string;
   frontmatter: FrontMatter;
   pageType: PageType;
-  toc: Header[];
+  toc?: Header[];
 }
 
 export interface PageModule {
