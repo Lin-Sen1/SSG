@@ -7,7 +7,16 @@ const options: VitePluginConfig = {
    * @name presetWind 兼容tailwindCss和windiCss语法
    * @name presetIcons 接入图标的功能
    */
-  presets: [presetAttributify(), presetWind({}), presetIcons()]
+  presets: [presetAttributify(), presetWind({}), presetIcons()],
+  rules: [
+    [
+      // \w+ 匹配任意方向的字符，用来匹配类名，添加border样式
+      /^divider-(\w+)$/,
+      ([, w]) => ({
+        [`border-${w}`]: '1px solid var(--island-c-divider-light)'
+      })
+    ]
+  ]
 };
 
 export default options;

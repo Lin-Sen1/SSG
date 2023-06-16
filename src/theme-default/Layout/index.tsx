@@ -1,6 +1,8 @@
-import siteData from 'island:site-data';
 import 'uno.css';
+import '../style/vars.css';
+import '../style/base.css';
 import { usePageData } from '@runtime';
+import { Nav } from './components/Nav';
 
 export function Layout() {
   const pageData = usePageData();
@@ -18,11 +20,7 @@ export function Layout() {
 
   return (
     <div>
-      <h1 p="2" m="6">
-        {siteData.title}
-      </h1>
-      <h2>{siteData.description}</h2>
-      <div>{getContent()}</div>
+      <Nav />
     </div>
   );
 }
