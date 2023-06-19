@@ -97,3 +97,8 @@ export interface Hero {
     theme: 'brand' | 'alt';
   }[];
 }
+
+export interface SidebarGroup {
+  text?: string;
+  items: SidebarItem[];
+}

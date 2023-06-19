@@ -3,6 +3,8 @@ import { SiteConfig } from 'shared/types';
 
 import { normalizePath, Plugin } from 'vite';
 import { PACKAGE_ROOT } from '../constants/index';
+import sirv from 'sirv';
+import fs from 'fs-extra';
 
 const SITE_DATA_ID = 'island:site-data';
 
@@ -10,7 +12,6 @@ export function pluginConfig(
   config: SiteConfig,
   restart?: () => Promise<void>
 ): Plugin {
-  // const server: ViteDevServer | null = null;
   return {
     name: 'island:site-data',
     // 当我们通过import语句来引入island：site-data模块时，会先进入resolveId方法
@@ -29,11 +30,6 @@ export function pluginConfig(
       }
     },
 
-    // 赋值给server
-    // configureServer(s) {
-    //   server = s;
-    // },
-
     // config 钩子可以让我们自定义 Vite 配置，因此之前指定的 root 参数也可以放到这个钩子中
     config() {
       return {
@@ -49,6 +45,16 @@ export function pluginConfig(
         //   }
         // }
       };
+    },
+    // configureServer 钩子可以让我们自定义 Vite 的开发服务器
+    configureServer(server) {
+      const publicDir = join(config.root, 'public');
+      //  fs.pathExistsSync() 方法用于检查文件是否存在于当前目录中。
+      if (fs.pathExistsSync(publicDir)) {
+        // server.middlewares.use() 方法用于添加中间件。
+        // sirv() 方法用于创建一个静态文件服务器。这样在docs目录下的静态文件就可以被访问到了。
+        server.middlewares.use(sirv(publicDir));
+      }
     },
 
     // 配置文件热更新

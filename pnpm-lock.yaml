@@ -79,6 +79,9 @@ dependencies:
   shiki:
     specifier: ^0.14.1
     version: 0.14.1
+  sirv:
+    specifier: ^2.0.3
+    version: 2.0.3
   unified:
     specifier: ^10.1.2
     version: 10.1.2
@@ -1572,7 +1575,7 @@ packages:
     resolution: {integrity: sha512-pKjhO8hlkcYVksnQn/ly1HLnh49ZYu/MDnexaQaPtS3/1KLibiinTNqzZpZJZ71T0dVUadW9fMfV2t283GhJzA==}
     dependencies:
       gzip-size: 6.0.0
-      sirv: 2.0.2
+      sirv: 2.0.3
     dev: false
 
   /@unocss/preset-attributify@0.50.1:
@@ -1731,7 +1734,7 @@ packages:
       flatted: 3.2.7
       pathe: 1.1.0
       picocolors: 1.0.0
-      sirv: 2.0.2
+      sirv: 2.0.3
     dev: true
 
   /@vitest/utils@0.28.5:
@@ -6005,8 +6008,8 @@ packages:
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
 
-  /sirv@2.0.2:
-    resolution: {integrity: sha512-4Qog6aE29nIjAOKe/wowFTxOdmbEZKb+3tsLljaBRzJwtqto0BChD2zzH0LhgCSXiI+V7X+Y45v14wBZQ1TK3w==}
+  /sirv@2.0.3:
+    resolution: {integrity: sha512-O9jm9BsID1P+0HOi81VpXPoDxYP374pkOLzACAoyUQ/3OUVndNpsz6wMnY2z+yOxzbllCKZrM+9QrWsv4THnyA==}
     engines: {node: '>= 10'}
     dependencies:
       '@polka/url': 1.0.0-next.21
