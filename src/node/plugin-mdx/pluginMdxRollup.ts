@@ -27,7 +27,8 @@ export async function pluginMdxRollup(): Promise<Plugin> {
     remarkPlugins: [
       remarkGfm,
       remarkPluginFrontmatter,
-      [remarkPluginMDXFrontMatter, { name: 'frontMatter' }],
+      // remarkPluginMDXFrontMatter 用于解析 Markdown 中的 frontmatter
+      [remarkPluginMDXFrontMatter, { name: 'frontmatter' }],
       remarkPluginToc
     ],
     // rehype 是 HTML 相关的插件集合，提供了 HTML 的格式化、压缩、文档生成等能力
