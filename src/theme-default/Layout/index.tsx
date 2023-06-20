@@ -1,28 +1,32 @@
 import 'uno.css';
 import '../style/vars.css';
 import '../style/base.css';
+import '../style/doc.css';
 import { usePageData } from '@runtime';
 import { Nav } from './components/Nav';
 import { HomeLayout } from './HomeLayout';
+import { DocLayout } from './DocLayout';
 
 export function Layout() {
   const pageData = usePageData();
   const { pageType } = pageData;
-  console.log(pageData);
   const getContent = () => {
     if (pageType === 'home') {
       return <HomeLayout />;
     } else if (pageType === 'doc') {
-      return <div>doc</div>;
+      return <DocLayout />;
     } else {
       return <div>404</div>;
     }
   };
 
   return (
+    // section标签是HTML5中的新标签，它的作用是对网页中的内容进行分块，使网页结构更加清晰。
     <div>
       <Nav />
-      <div>{getContent()}</div>
+      <section style={{ paddingTop: 'var(--island-nav-height)' }}>
+        {getContent()}
+      </section>
     </div>
   );
 }
