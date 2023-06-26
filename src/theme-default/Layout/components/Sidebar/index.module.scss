@@ -35,15 +35,15 @@
   }
 }
 
-// @media (min-width: 1440px) {
-//   .sidebar {
-//     padding-left: max(
-//       32px,
-//       calc(32px + (100% - var(--island-layout-max-width)) / 2)
-//     );
-//     width: calc(
-//       var(--island-sidebar-width) +
-//         ((100% - var(--island-layout-max-width)) / 2)
-//     );
-//   }
-// }
+@media (min-width: 1440px) {
+  .sidebar {
+    padding-left: max(
+      32px,
+      calc(32px + (100vw - var(--island-layout-max-width)) / 2)
+    );
+    width: calc(
+      var(--island-sidebar-width) +
+        ((100% - var(--island-layout-max-width)) / 2)
+    );
+  }
+}

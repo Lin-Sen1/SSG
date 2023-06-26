@@ -21,7 +21,6 @@
 }
 
 .island-doc h2 {
-  margin: 0 16px;
   padding-top: 60px;
   letter-spacing: -0.02em;
   line-height: 32px;
@@ -41,6 +40,7 @@
   padding-right: 0.23em;
   font-weight: 500;
   transition: color 0.25s, opacity 0.25s;
+  opacity: 0;
 }
 
 .island-doc h1:hover .header-anchor,

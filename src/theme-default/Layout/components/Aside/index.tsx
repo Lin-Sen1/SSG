@@ -1,5 +1,6 @@
 import { Header } from 'shared/types';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { bindingAsideScroll, scrollToTarget } from '../../../logic/asideScroll';
 
 interface AsideProps {
   headers: Header[];
@@ -19,6 +20,11 @@ export function Aside(props: AsideProps) {
           href={`#${header.id}`}
           className="block leading-7 text-text-2 hover:text-text-1"
           transition="color duration-300"
+          onClick={(e) => {
+            // e.preventDefault();
+            const target = document.getElementById(header.id);
+            target && scrollToTarget(target, false);
+          }}
           style={{
             paddingLeft: (header.depth - 2) * 12
           }}
@@ -28,6 +34,14 @@ export function Aside(props: AsideProps) {
       </li>
     );
   };
+
+  // 组件内逻辑
+  useEffect(() => {
+    const unbinding = bindingAsideScroll();
+    return () => {
+      unbinding();
+    };
+  }, []);
 
   return (
     <div
