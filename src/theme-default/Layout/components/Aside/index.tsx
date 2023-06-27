@@ -1,6 +1,6 @@
 import { Header } from 'shared/types';
 import { useEffect, useRef } from 'react';
-import { bindingAsideScroll, scrollToTarget } from '../../../logic/asideScroll';
+import { bindingAsideScroll } from '../../../logic/asideScroll';
 
 interface AsideProps {
   headers: Header[];
@@ -20,11 +20,6 @@ export function Aside(props: AsideProps) {
           href={`#${header.id}`}
           className="block leading-7 text-text-2 hover:text-text-1"
           transition="color duration-300"
-          onClick={(e) => {
-            // e.preventDefault();
-            const target = document.getElementById(header.id);
-            target && scrollToTarget(target, false);
-          }}
           style={{
             paddingLeft: (header.depth - 2) * 12
           }}
@@ -37,6 +32,8 @@ export function Aside(props: AsideProps) {
 
   // 组件内逻辑
   useEffect(() => {
+    // !这里不直接使用bindingAsideScroll()，是因为如果这样做的话，每次组件更新都会重新绑定事件并且在组件卸载的时候重新解绑
+    // !这样做会导致事件绑定的次数越来越多，最终导致页面卡顿
     const unbinding = bindingAsideScroll();
     return () => {
       unbinding();
@@ -63,11 +60,11 @@ export function Aside(props: AsideProps) {
               style={{
                 left: '-1px',
                 transition:
-                  'top 0.25s cubic-bezier(0, 1, 0.5, 1), background-color 0.5s, opacity 0.25s'
+                  'top 0.5s cubic-bezier(0, 1, 0.5, 1), background-color 0.5s, opacity 0.25s'
               }}
             ></div>
             <div leading-7="~" text="13px" font="semibold">
-              ON THIS PAGE
+              On this page
             </div>
             <nav>
               <ul relative="~">{headers.map(renderHeader)}</ul>
