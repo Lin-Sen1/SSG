@@ -21,7 +21,8 @@
 }
 
 .island-doc h2 {
-  padding-top: 60px;
+  margin: 48px 0 16px;
+  /* padding-top: 24px; */
   letter-spacing: -0.02em;
   line-height: 32px;
   font-size: 24px;

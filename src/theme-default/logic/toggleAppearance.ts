@@ -1,9 +1,8 @@
 const APPEARANCE_KEY = 'appearance';
 
-// 是一个用于操作文档根元素（即 <html> 元素）的 DOMTokenList 对象。它可以让你方便地添加、删除和切换类名。
-const classList = document.documentElement.classList;
-
 const setClassList = (isDark = false) => {
+  // 是一个用于操作文档根元素（即 <html> 元素）的 DOMTokenList 对象。它可以让你方便地添加、删除和切换类名。
+  const classList = document.documentElement.classList;
   if (isDark) {
     classList.add('dark');
   } else {
@@ -27,6 +26,7 @@ if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
 }
 
 export function toggle() {
+  const classList = document.documentElement.classList;
   // contains() 方法返回一个布尔值，表示某个元素是否包含给定的类名。
   if (classList.contains('dark')) {
     // 点击的时候如果存在，说明目前是暗黑模式，点击后切换为浅色模式

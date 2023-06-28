@@ -27,7 +27,7 @@ export async function bundle(root: string, config: SiteConfig) {
       plugins: await createVitePlugins(config, isServer),
       ssr: {
         // 注意加上这个配置，防止 cjs 产物中 require ESM 的产物，因为 react-router-dom 的产物为 ESM 格式
-        noExternal: ['react-router-dom']
+        noExternal: ['react-router-dom', 'loadash-es']
       },
       build: {
         minify: false,
@@ -92,9 +92,9 @@ export async function renderPage(
   // 7. 打包结束
   await Promise.all(
     routes.map(async (route) => {
-      const routPath = route.path;
+      const routePath = route.path;
       // 调用render函数，拿到组件的html字符串
-      const appHtml = render(routPath);
+      const appHtml = await render(routePath);
       const html = `
   <!DOCTYPE html>
 <html lang="en">
@@ -114,9 +114,9 @@ export async function renderPage(
 </html>
   `.trim();
 
-      const fileName = routPath.endsWith('/')
-        ? `${routPath}index.html`
-        : `${routPath}.html`;
+      const fileName = routePath.endsWith('/')
+        ? `${routePath}index.html`
+        : `${routePath}.html`;
 
       // 安装fs-extra 这个库比原生的fs库有更加好用的API，暂时是啥API
       // ensureDir 如果目录结构不存在，则创建它，如果目录存在，则不进行创建，类似mkdir -p。

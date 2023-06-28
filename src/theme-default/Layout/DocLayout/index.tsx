@@ -1,9 +1,9 @@
 import { Content, usePageData } from '@runtime';
 import { useLocation } from 'react-router-dom';
-import { Sidebar } from '../components/Sidebar';
+import { Sidebar } from '../../components/Sidebar';
 import styles from './index.module.scss';
-import { DocFooter } from '../components/DocFooter';
-import { Aside } from '../components/Aside';
+import { DocFooter } from '../../components/DocFooter';
+import { Aside } from '../../components/Aside';
 
 export function DocLayout() {
   const { siteData, toc } = usePageData();

@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import { toggle } from '../../../logic/toggleAppearance';
+import { toggle } from '../../logic/toggleAppearance';
 
 interface SwitchProps {
   onClick?: () => void;

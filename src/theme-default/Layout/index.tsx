@@ -3,7 +3,7 @@ import '../style/vars.css';
 import '../style/base.css';
 import '../style/doc.css';
 import { usePageData } from '@runtime';
-import { Nav } from './components/Nav';
+import { Nav } from '../components/Nav';
 import { HomeLayout } from './HomeLayout';
 import { DocLayout } from './DocLayout';
 

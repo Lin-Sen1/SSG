@@ -1,3 +1,5 @@
+import { throttle } from 'lodash-es';
+
 let links: HTMLAnchorElement[] = [];
 // 导航栏高度
 const NAV_HEIGHT = 56;
@@ -83,10 +85,39 @@ export function bindingAsideScroll() {
     }
   };
 
-  window.addEventListener('scroll', setActiveLink);
+  // 节流函数，避免频繁触发 setActiveLink
+  const throttledSetActiveLink = throttle(setActiveLink, 100);
+
+  window.addEventListener('scroll', throttledSetActiveLink);
 
   // 返回事件解绑逻辑，供 TOC 组件调用，避免内存泄露
   return () => {
-    window.removeEventListener('scroll', setActiveLink);
+    window.removeEventListener('scroll', throttledSetActiveLink);
   };
+}
+
+export function scrollToTarget(target: HTMLElement, isSmooth: boolean) {
+  const targetPadding = parseInt(
+    window.getComputedStyle(target).paddingTop,
+    10
+  );
+  /**
+   * window.scrollY 是获取滚动条滚动的距离
+   * target.getBoundingClientRect().top 是获取目标元素距离顶部的距离
+   * targetPadding 是目标元素的 padding 值
+   * NAV_HEIGHT 是导航栏的高度
+   */
+  const targetTop =
+    window.scrollY +
+    target.getBoundingClientRect().top +
+    targetPadding -
+    NAV_HEIGHT;
+  // window.scrollTo是用来滚动到指定位置的
+  window.scrollTo({
+    left: 0,
+    top: targetTop,
+    behavior: isSmooth ? 'smooth' : 'auto'
+  });
+  console.log(targetTop);
+  // TODO：!看一下为什么锚点后边为啥跟着负数
 }

@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import { usePrevNextPage } from '../../../logic/usePrevNextPage';
+import { usePrevNextPage } from '../../logic/usePrevNextPage';
 
 export function DocFooter() {
   const { prevPage, nextPage } = usePrevNextPage();

@@ -17,12 +17,11 @@ interface ChildNode {
   children?: ChildNode[];
 }
 
-const slugger = new Slugger();
-
 export const remarkPluginToc: Plugin<[], Root> = () => {
   return (tree) => {
     // 初始化toc数组
     const toc: TocItem[] = [];
+    const slugger = new Slugger();
     // 遍历 AST 节点
     visit(tree, 'heading', (node) => {
       if (!node.depth || !node.children) return;

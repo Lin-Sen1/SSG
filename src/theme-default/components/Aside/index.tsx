@@ -1,13 +1,16 @@
 import { Header } from 'shared/types';
 import { useEffect, useRef } from 'react';
-import { bindingAsideScroll } from '../../../logic/asideScroll';
+import { bindingAsideScroll, scrollToTarget } from '../../logic/asideScroll';
+import { useHeaders } from '../../logic/useHeaders';
 
 interface AsideProps {
   headers: Header[];
 }
 
 export function Aside(props: AsideProps) {
-  const { headers = [] } = props;
+  const { headers: rawHeaders = [] } = props;
+  const headers = useHeaders(rawHeaders);
+  console.log(headers);
   // 是否展示大纲栏
   const hasOutline = headers.length > 0;
   // 当前标题会进行高亮处理，我们会在这个标题前面加一个 marker 元素
@@ -20,6 +23,14 @@ export function Aside(props: AsideProps) {
           href={`#${header.id}`}
           className="block leading-7 text-text-2 hover:text-text-1"
           transition="color duration-300"
+          onClick={(e) => {
+            e.preventDefault();
+            const target = document.getElementById(header.id);
+            // 因为点击跳转至对应锚点的时候，顶部导航栏会遮住我们的锚点，导致看不到标题。
+            // scrollToTarget() 就是用来给这个标题添加一个偏移量，让标题能够在顶部导航栏下面
+            target && scrollToTarget(target, false);
+          }}
+          // 这里的padding-left是为了让标题有缩进效果
           style={{
             paddingLeft: (header.depth - 2) * 12
           }}
