@@ -103,3 +103,6 @@ export interface SidebarGroup {
   text?: string;
   items: SidebarItem[];
 }
+export interface PropsWithIsland {
+  __island?: boolean;
+}

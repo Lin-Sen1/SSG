@@ -31,7 +31,7 @@ describe('Markdown compile cases', () => {
     const mdContent = '```js\nconsole.log(123);\n```';
     const result = processor.processSync(mdContent);
     expect(result.value).toMatchInlineSnapshot(`
-      "<div class=\\"language-js\\"><span class=\\"lang\\">js</span><pre><code class=\\"\\">console.log(123);
+      "<div class=\\"language-js\\"><span class=\\"lang\\">js</span><pre><code class=\\"language-js\\">console.log(123);
       </code></pre></div>"
     `);
   });

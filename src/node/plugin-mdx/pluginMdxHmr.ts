@@ -37,7 +37,7 @@ export function pluginMdxHMR(): Plugin {
         return result;
       }
     },
-    // 热更新
+    // mdx热更新，这个用来监听mdx文件的变化
     handleHotUpdate(ctx) {
       if (MD_REGEX.test(ctx.file)) {
         ctx.server.ws.send({

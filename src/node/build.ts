@@ -26,14 +26,13 @@ export async function bundle(root: string, config: SiteConfig) {
       root,
       plugins: await createVitePlugins(config, isServer),
       ssr: {
-        // 注意加上这个配置，防止 cjs 产物中 require ESM 的产物，因为 react-router-dom 的产物为 ESM 格式
-        noExternal: ['react-router-dom', 'loadash-es']
+        // 注意加上这个配置，防止 cjs 产物中 require ESM 的产物
+        noExternal: ['react-router-dom', 'lodash-es']
       },
       build: {
         minify: false,
         ssr: isServer,
         outDir: isServer ? path.join(root, '.temp') : path.join(root, 'build'),
-        // outDir: isServer ? '.temp' : 'build',
         rollupOptions: {
           // input是入口文件，output是出口文件
           input: isServer ? SERVER_ENTRY_PATH : CLIENT_ENTRY_PATH,
@@ -62,11 +61,10 @@ export async function bundle(root: string, config: SiteConfig) {
       viteBuild(await resolveViteConfig(false)),
       viteBuild(await resolveViteConfig(true))
     ]);
-
     // 断言return类型，防止用的时候类型错误
     return [clientBundle, serverBundle] as [RollupOutput, RollupOutput];
   } catch (error) {
-    console.log('1', error);
+    console.log('1---------------------', error);
   }
 }
 
@@ -117,7 +115,6 @@ export async function renderPage(
       const fileName = routePath.endsWith('/')
         ? `${routePath}index.html`
         : `${routePath}.html`;
-
       // 安装fs-extra 这个库比原生的fs库有更加好用的API，暂时是啥API
       // ensureDir 如果目录结构不存在，则创建它，如果目录存在，则不进行创建，类似mkdir -p。
       await fs.ensureDir(path.join(root, 'build', dirname(fileName)));
@@ -126,7 +123,7 @@ export async function renderPage(
     })
   );
   // 移除ssr产物
-  await fs.remove(path.join(root, '.temp'));
+  // await fs.remove(path.join(root, '.temp'));
 }
 
 export async function build(root: string, config: SiteConfig) {
@@ -136,15 +133,12 @@ export async function build(root: string, config: SiteConfig) {
   // 使用path.join()找不到路径，使用resolve后正常，原因是join只是将简单的路劲片段进行拼接
   // 并规范化生成一个路径，而resolve生成绝对路径，相当于执行cd操作
   const serverEntryPath = path.resolve(root, '.temp', 'ssr-entry.js');
-  console.log('serverEntryPath', serverEntryPath);
   // 3 服务端渲染，产出HTML
   // 此处虽然可以直接引用runtime中的render，但是不推荐，因为ssr-entry本质是跑在node环境里。
-  const { render, routes } = await import(
-    pathToFileURL(serverEntryPath).toString()
-  );
+  const { render, routes } = await import(serverEntryPath);
   try {
     await renderPage(render, root, clientBundle, routes);
   } catch (error) {
-    console.log('buildError---------------', error);
+    console.log('renderPage报错咯---------------', error);
   }
 }

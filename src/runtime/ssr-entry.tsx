@@ -10,16 +10,21 @@ export async function render(pagePath: string) {
 
   // 生产 pageData
   const pageData = await initPageData(pagePath);
-
-  // https://zh-hans.reactjs.org/docs/react-dom-server.html#rendertostring
-  return renderToString(
-    // location相当于一个默认的路由
+  const { clearIslandData, data } = await import('./jsx-runtime');
+  const { islandProps, islandToPathMap } = data;
+  clearIslandData();
+  const appHtml = renderToString(
     <DataContext.Provider value={pageData}>
       <StaticRouter location={pagePath}>
         <App />
       </StaticRouter>
     </DataContext.Provider>
   );
+  return {
+    appHtml,
+    islandProps,
+    islandToPathMap
+  };
 }
 
 export { routes } from 'island:routes';

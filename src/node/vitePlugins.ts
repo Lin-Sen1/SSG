@@ -7,6 +7,9 @@ import { createMdxPlugins } from './plugin-mdx';
 import { Plugin } from 'vite';
 import pluginUnocss from 'unocss/vite';
 import unocssOptions from './unocssOptions';
+import path from 'path';
+import { PACKAGE_ROOT } from './constants';
+import babelPluginIsland from './babel-plugin-island';
 
 export async function createVitePlugins(
   config: SiteConfig,
@@ -19,7 +22,13 @@ export async function createVitePlugins(
     pluginIndexHtml(),
     // react热更新插件
     pluginReact({
-      jsxRuntime: 'automatic'
+      jsxRuntime: 'automatic',
+      jsxImportSource: isSSR
+        ? path.join(PACKAGE_ROOT, 'src', 'runtime')
+        : 'react',
+      babel: {
+        plugins: [babelPluginIsland]
+      }
     }),
     // 把虚拟模块的配置注入到vite的环境变量中 island:siteData
     // restart是用来监听配置文件的变化，如果配置文件发生变化，就会重启vite服务 解析
