@@ -3,6 +3,11 @@ import { App, initPageData } from './app';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { DataContext } from './hooks';
+export interface RenderResult {
+  appHtml: string;
+  islandProps: unknown[];
+  islandToPathMap: Record<string, string>;
+}
 
 export async function render(pagePath: string) {
   // 将一个 React 元素渲染成其初始的 HTML。React 将返回一个 HTML 字符串。你可以使用这种方法在服务器上生产 HTML，并在初始请求中发送标记。以加快页面加载速度，并允许搜索引擎以 SEO 为目的抓取你的页面。
@@ -10,8 +15,8 @@ export async function render(pagePath: string) {
 
   // 生产 pageData
   const pageData = await initPageData(pagePath);
+
   const { clearIslandData, data } = await import('./jsx-runtime');
-  const { islandProps, islandToPathMap } = data;
   clearIslandData();
   const appHtml = renderToString(
     <DataContext.Provider value={pageData}>
@@ -20,6 +25,7 @@ export async function render(pagePath: string) {
       </StaticRouter>
     </DataContext.Provider>
   );
+  const { islandProps, islandToPathMap } = data;
   return {
     appHtml,
     islandProps,
