@@ -4,6 +4,7 @@ import {
   CLIENT_ENTRY_PATH,
   CLIENT_OUTPUT,
   MASK_SPLITTER,
+  PACKAGE_ROOT,
   SERVER_ENTRY_PATH
 } from './constants';
 import path, { dirname } from 'path';
@@ -14,6 +15,7 @@ import { SiteConfig } from '../shared/types/index';
 import { createVitePlugins } from './vitePlugins';
 import { Route } from './plugin-routes/index';
 import { RenderResult } from 'runtime/ssr-entry';
+import { HelmetData } from 'react-helmet-async';
 
 // 此处当时以为和定义一个function是一个意思，但是会报错
 // 原因是因为function最后return的还是import语法，最后打包的时候会被编译为require导致报错
@@ -50,7 +52,8 @@ export async function bundle(root: string, config: SiteConfig) {
           input: isServer ? SERVER_ENTRY_PATH : CLIENT_ENTRY_PATH,
           output: {
             format: isServer ? 'cjs' : 'esm'
-          }
+          },
+          external: EXTERNALS
         }
       }
     };
@@ -69,6 +72,10 @@ export async function bundle(root: string, config: SiteConfig) {
   // // ]);
 
   try {
+    // await fs.copy(
+    //   path.join(PACKAGE_ROOT, 'vendors'),
+    //   path.join(root, CLIENT_OUTPUT)
+    // );
     const [clientBundle, serverBundle] = await Promise.all([
       viteBuild(await resolveViteConfig(false)),
       viteBuild(await resolveViteConfig(true))
@@ -104,11 +111,15 @@ window.ISLAND_PROPS = JSON.parse(
   const injectId = 'island:inject';
   return viteBuild({
     mode: 'production',
+    esbuild: {
+      jsx: 'automatic'
+    },
     build: {
       // 输出目录
       outDir: path.join(root, '.temp'),
       rollupOptions: {
-        input: injectId
+        input: injectId,
+        external: EXTERNALS
       }
     },
     plugins: [
@@ -146,7 +157,7 @@ window.ISLAND_PROPS = JSON.parse(
 
 // renderPage用来渲染多路由页面
 export async function renderPage(
-  render: (url: string) => RenderResult,
+  render: (url: string, helmetContext: object) => RenderResult,
   root: string,
   clientBundle: RollupOutput,
   routes: Route[]
@@ -167,8 +178,15 @@ export async function renderPage(
   await Promise.all(
     routes.map(async (route) => {
       const routePath = route.path;
+      const helmetContext = {
+        context: {}
+      } as HelmetData;
       // 调用render函数，拿到组件的html字符串
-      const { appHtml, islandToPathMap, islandProps } = await render(routePath);
+      const { appHtml, islandToPathMap, islandProps } = await render(
+        routePath,
+        helmetContext.context
+      );
+      const { helmet } = helmetContext.context;
       const styleAssets = clientBundle.output.filter(
         (chunk) => chunk.type === 'asset' && chunk.fileName.endsWith('.css')
       );
@@ -186,10 +204,13 @@ export async function renderPage(
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${helmet?.title?.toString() || ''}
+  ${helmet?.meta?.toString() || ''}
+  ${helmet?.link?.toString() || ''}
+  ${helmet?.style?.toString() || ''}
   ${styleAssets
     .map((item) => `<link rel="stylesheet" href="/${item.fileName}">`)
     .join('\n')}
-  <title>SSG</title>
 </head>
 
 <body>

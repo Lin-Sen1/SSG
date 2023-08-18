@@ -6,10 +6,11 @@ import { usePageData } from '@runtime';
 import { Nav } from '../components/Nav';
 import { HomeLayout } from './HomeLayout';
 import { DocLayout } from './DocLayout';
+import { Helmet } from 'react-helmet-async';
 
 export function Layout() {
   const pageData = usePageData();
-  const { pageType } = pageData;
+  const { pageType, title } = pageData;
   const getContent = () => {
     if (pageType === 'home') {
       return <HomeLayout />;
@@ -23,6 +24,9 @@ export function Layout() {
   return (
     // section标签是HTML5中的新标签，它的作用是对网页中的内容进行分块，使网页结构更加清晰。
     <div>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <Nav />
       <section style={{ paddingTop: 'var(--island-nav-height)' }}>
         {getContent()}

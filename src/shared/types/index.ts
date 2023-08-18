@@ -106,3 +106,13 @@ export interface SidebarGroup {
 export interface PropsWithIsland {
   __island?: boolean;
 }
+
+export interface PageData {
+  // ...
+  title: string;
+}
+
+export interface PageModule {
+  // ...
+  title?: string;
+}
