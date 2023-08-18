@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 import { build } from './build';
 import { resolveConfig } from './config';
+import { preview } from './preview';
 
 // import { resolve } from "root";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -49,6 +50,18 @@ cli
       await build(root, config);
     } catch (error) {
       console.log('build error------------------', error);
+    }
+  });
+
+cli
+  .command('preview [root]', 'preview production build')
+  .option('--port <port>', 'port to use for preview server')
+  .action(async (root: string, { port }: { port: number }) => {
+    try {
+      root = resolve(root);
+      await preview(root, { port });
+    } catch (e) {
+      console.log(e);
     }
   });
 

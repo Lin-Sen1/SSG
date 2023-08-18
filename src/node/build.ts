@@ -176,7 +176,7 @@ export async function renderPage(
   // 6. 重复1-5
   // 7. 打包结束
   await Promise.all(
-    routes.map(async (route) => {
+    [...routes, { path: '/404' }].map(async (route) => {
       const routePath = route.path;
       const helmetContext = {
         context: {}
